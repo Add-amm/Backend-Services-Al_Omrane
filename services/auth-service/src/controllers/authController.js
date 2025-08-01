@@ -11,13 +11,8 @@ export const login = async (req, res) => {
       const { username, mdp } = req.body;
       if (!mdp) return res.status(400).json({ message: 'Mot de passe manquant' });
 
-      console.log("Mot ded passe recu :", mdp);
-      console.log(JSON.stringify(mdp));
-
       const user = await User.findOne({ where: { username, bloquer: false } });
       if (!user) return res.status(401).json({ message: 'Identifiants incorrects' });
-  
-      console.log('Hashed password in DB:', user.mdp);
 
       const isMatch = await bcrypt.compare(mdp, user.mdp);
       if (!isMatch) return res.status(401).json({ message: 'Identifiants incorrects' });
