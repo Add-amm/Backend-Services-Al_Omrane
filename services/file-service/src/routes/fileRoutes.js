@@ -4,7 +4,7 @@ import { uploadFile, downloadFile } from '../controllers/fileController.js';
 
 const router = Router();
 
-router.post('/upload', upload.single('contrat'), uploadFile);
+router.post('/upload', upload.single('file'), uploadFile);
 
 router.get('/download/:id', downloadFile);
 
