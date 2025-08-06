@@ -206,18 +206,7 @@ MIT License. See [LICENSE.txt](LICENSE.txt).
 
 ---
 
-## Authors
-
-- Adam Sorouri
-
----
-
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
----
-
-## Contact
-
-For questions or support, please contact [your_email@example.com](mailto:your_email@example.com).
