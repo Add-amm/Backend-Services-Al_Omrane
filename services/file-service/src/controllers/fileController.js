@@ -51,3 +51,20 @@ export const downloadFile = async (req, res) => {
     res.status(500).json({ error: 'File download failed', details: err.message });
   }
 };
+
+export const deleteFile = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const fileToDelete = await File.findByPk(id);
+
+    if (fileToDelete) {
+      fileToDelete.destroy();
+      return res.status(200).json({ message: "fichier supprimé avec succès." })
+    } else {
+      return res.status(404).json({ message: "Fichier non trouvé."})
+    }
+  } catch (error) {
+    res.status(200).json({ message: error.message })
+  }
+};
