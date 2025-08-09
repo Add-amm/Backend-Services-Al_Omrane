@@ -6,7 +6,9 @@ import { validateSupplierInput } from '../middlewares/validateSupplier.js';
 import {
     getAllSuppliers,
     getSupplierById,
-    createSupplier
+    createSupplier,
+    updateSupplier,
+    deleteSupplier
 } from '../controllers/supplierController.js';
 
 const router = Router();
@@ -38,5 +40,19 @@ router.post(
     createSupplier
 );
 
+router.put(
+    '/supplier/:id',
+    authenticateToken,
+    authorizeRoles(1),
+    validateSupplierInput,
+    updateSupplier
+);
+
+router.delete(
+    '/supplier/:id',
+    authenticateToken,
+    authorizeRoles(1),
+    deleteSupplier
+);
 
 export default router;
