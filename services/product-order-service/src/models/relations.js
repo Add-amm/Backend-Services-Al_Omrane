@@ -1,13 +1,17 @@
-import Agence from './agence.js';
+import Order from './order.js';
 import User from './user.js';
-import Role from './role.js';
+import Product from './product.js';
+import Supplier from './supplier.js';
 
-  
-User.belongsTo(Role, { foreignKey: 'id_role' });
-User.belongsTo(Agence, { foreignKey: 'id_agence' });
 
-Role.hasMany(User, { foreignKey: 'id_role' });
+Order.belongsTo(User, { foreignKey: 'id_demandeur' });
+Order.belongsTo(Product, { foreignKey: 'id_produit' });
 
-Agence.hasMany(User, { foreignKey: 'id_agence' });
+User.hasMany(Order, { foreignKey: 'id_demandeur' });
+Product.hasMany(Order, { foreignKey: 'id_produit' });
 
-export { Agence, User, Role };
+
+Product.belongsTo(Supplier, { foreignKey: 'id_fournisseur' });
+Supplier.hasMany(Product, { foreignKey: 'id_fournisseur' });
+
+export { Order, User, Product, Supplier };
