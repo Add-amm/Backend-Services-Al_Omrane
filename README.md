@@ -1,4 +1,10 @@
-# Backend-Services-Al_Omrane
+# ⚙️ Backend
+
+<div align="center">
+    <img src="https://skillicons.dev/icons?i=nodejs,javascript,express,redis,mysql,npm,docker,github" /><br>
+</div>
+
+This is a backend architecture based on microservices. It includes multiple services built using **Node.js (Express.js)** and leverages **Docker** and **Docker Compose** for orchestration.
 
 ## Overview
 
