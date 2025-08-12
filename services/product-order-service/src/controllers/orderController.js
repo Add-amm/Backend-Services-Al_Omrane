@@ -155,7 +155,11 @@ export const createOrder = async (req, res) => {
         // Check s'il existe une demande en attente
         const id_demandeur = req.user.id;
         const existingOrder = await Order.findOne({
-            where: { id_demandeur, statut: 'en_attente' }
+            where: { id_demandeur,
+              statut: {
+                [Op.in]: ['en_attente_responsable', 'en_attente_directeur']
+              }
+            }
         });
 
         if (existingOrder) {
@@ -165,7 +169,7 @@ export const createOrder = async (req, res) => {
         const { id_produit, quantite } = req.body;
 
         // Check si le stock est suffisant
-        checkStock(id_produit, quantite);
+        await checkStock(id_produit, quantite);
 
         // Création de la demande
         const newOrder = await Order.create({
@@ -201,7 +205,7 @@ export const updateOrder = async (req, res) => {
         };
 
         // Check le stock
-        checkStock(id_produit, quantite);
+        await checkStock(id_produit, quantite);
 
         // Modifier la demande
         await order.update({

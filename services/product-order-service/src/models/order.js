@@ -8,7 +8,7 @@ const Order = sequelize.define('Order', {
   id_produit: { type: DataTypes.INTEGER, allowNull: false },
   quantite: { type: DataTypes.INTEGER, allowNull: false },
   statut: {
-    type: DataTypes.ENUM('en_attente_directeur', 'en_attente_reponsable', 'rejete', 'accepte'),
+    type: DataTypes.ENUM('en_attente_directeur', 'en_attente_responsable', 'rejete', 'accepte'),
     allowNull: false, defaultValue: 'en_attente_directeur'
   },
   motif_refus: { type: DataTypes.STRING, allowNull: true },
