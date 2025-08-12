@@ -6,6 +6,12 @@ import { addUserToken, blacklistUserTokens } from '../middlewares/tokens.js';
 
 dotenv.config();
 
+const URLMapper = {
+  1: "http://localhost:3004/responsable",
+  2: "http://localhost:3004/admin",
+  3: "http://localhost:3004/employer"
+}
+
 export const login = async (req, res) => {
     try {
       const { username, mdp } = req.body;
@@ -25,11 +31,13 @@ export const login = async (req, res) => {
       {
         expiresIn: '1h'
       }
-    );
+      );
 
       addUserToken(user.id, token);
-
-      res.json({ token });
+      
+      const redirectURL = URLMapper[user.id_role];
+      
+      res.json({ token, redirectURL });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
