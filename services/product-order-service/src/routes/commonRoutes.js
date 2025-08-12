@@ -96,21 +96,21 @@ router.delete(
 
 // ==================== OTHERS ====================
 router.get(
-    '/order/directeur',
+    '/order-directeur',
     authenticateToken,
     authorizeRoles(2),
     getAllOrdersForDirecteur
 );
 
 router.get(
-    '/order/responsable',
+    '/order-responsable',
     authenticateToken,
     authorizeRoles(1),
     getAllOrdersForResponsable
 );
 
 router.get(
-    '/order/custom',
+    '/order-custom',
     authenticateToken,
     authorizeRoles(1,2),
     getAllOrdersByStatut
