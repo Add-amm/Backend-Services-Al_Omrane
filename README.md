@@ -12,7 +12,7 @@ Backend-Services-Al_Omrane is a microservices-based backend system designed for 
 - **auth-service**: Handles authentication, JWT issuance, and token management.
 - **users-management**: Manages users, roles, and agencies.
 - **supplier-service**: Manages suppliers and their contracts/files.
-- **product-order-service**: Handles products and orders (skeleton provided).
+- **product-order-service**: Handles products and orders.
 - **file-service**: Handles file uploads and downloads.
 - **notification-service**: Sends email notifications.
 - **mysql**: MySQL database for persistent storage.
@@ -107,16 +107,37 @@ This will build and start all services, including MySQL and Redis.
   - `GET /api/supplier` — List all suppliers
   - `GET /api/supplier/:id` — Get supplier by ID
   - `POST /api/supplier` — Create supplier (supports file upload)
+  - `PUT /api/supplier/:id` — Update supplier
+  - `DELETE /api/supplier/:id` — Delete supplier
 
 ### 4. **product-order-service**
 - **Port:** 3003
-- **Endpoints:** (To be implemented)
+- **Endpoints:**
+  - **Products:**
+    - `GET /api/product` — List all products
+    - `GET /api/product/:id` — Get product by ID
+    - `POST /api/product` — Create product
+    - `PUT /api/product/:id` — Update product
+    - `DELETE /api/product/:id` — Delete product
+  - **Orders:**
+    - `GET /api/order` — List all orders
+    - `GET /api/order/:id` — Get order by ID
+    - `POST /api/order` — Create order
+    - `PUT /api/order/:id` — Update order
+    - `DELETE /api/order/:id` — Delete order
+    - `GET /api/order-directeur` — List orders for director
+    - `GET /api/order-responsable` — List orders for responsible
+    - `GET /api/order-custom` — List orders by status
+    - `PATCH /api/order/:id/accept-by-responsable` — Accept order by responsible
+    - `PATCH /api/order/:id/accept-by-director` — Accept order by director
+    - `POST /api/order/:id/reject` — Reject order
 
 ### 5. **file-service**
 - **Port:** 4005
 - **Endpoints:**
-  - `POST /api/upload` — Upload a file
-  - `GET /api/download/:id` — Download a file by ID
+  - `POST /file/upload` — Upload a file
+  - `GET /file/download/:id` — Download a file by ID
+  - `DELETE /file/delete/:id` — Delete a file by ID
 
 ### 6. **notification-service**
 - **Port:** 4000
