@@ -2,6 +2,11 @@ import express, { json } from 'express';
 const app = express();
 import fileRoutes from './routes/fileRoutes.js';
 
+app.use(cors({
+    origin: "*", // "http://localhost:3000" URL of the ervice or frontend it will exchange with
+    credentials: false,
+}));
+
 app.use(json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/file', fileRoutes);

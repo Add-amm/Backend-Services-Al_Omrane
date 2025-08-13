@@ -8,11 +8,6 @@ import { authenticate, sync } from './config/database.js';
 
 const PORT = process.env.PORT || 4005;
 
-app.use(cors({
-    origin: "*", // "http://localhost:3000" URL of the service or frontend it will exchange with
-    credentials: true,
-  }));
-
 const startServer = async () => {
     try {
       await authenticate();
