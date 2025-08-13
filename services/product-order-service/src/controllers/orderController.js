@@ -325,6 +325,10 @@ export const refuseOrder = async (req, res) => {
             return res.status(404).json({ message: "Demande non trouvée" });
         }
 
+        if (order.statut === "accepte" || order.statut === "rejete") {
+          return res.status(400).json({ message: "Cette demande à déjà été traitée." });
+        }
+
         order.statut = "rejete";
         order.motif_refus = motif_refus;
         await order.save();
