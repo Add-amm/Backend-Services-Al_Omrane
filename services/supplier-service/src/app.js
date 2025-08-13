@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 const app = express();
 import supplierRoutes from './routes/supplierRoutes.js';
+import cors from "cors";
 
 app.use(cors({
     origin: "*", // "http://localhost:3000" URL of the ervice or frontend it will exchange with
