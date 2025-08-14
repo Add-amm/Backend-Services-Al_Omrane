@@ -41,7 +41,7 @@ export async function getSupplierById(req, res) {
 // ==================== CREATE Supplier ====================
 export async function createSupplier(req, res) {
   try {
-    const { id_fiscal, nom, n_tel } = req.body;
+    const { id_fiscal, nom, adresse,  n_tel } = req.body;
     const fileBuffer = req.file?.buffer;
 
     let file_id = null;
@@ -69,6 +69,7 @@ export async function createSupplier(req, res) {
     const supplier = await Supplier.create({
       id_fiscal,
       nom,
+      adresse,
       n_tel,
       file_id,
     });
@@ -86,7 +87,7 @@ export async function updateSupplier(req, res) {
     const { id } = req.params;
 
     // Récupération des champs à mettre à jour
-    const { id_fiscal, nom, n_tel } = req.body;
+    const { id_fiscal, nom, adresse, n_tel } = req.body;
 
     // Vérifie que le fournisseur existe
     const supplier = await Supplier.findByPk(id);
@@ -112,6 +113,7 @@ export async function updateSupplier(req, res) {
     await supplier.update({
       id_fiscal,
       nom,
+      adresse,
       n_tel
     });
 
