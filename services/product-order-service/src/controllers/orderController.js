@@ -1,4 +1,4 @@
-import { Order, Product } from '../models/relations.js';
+import { Order, Product, User } from '../models/relations.js';
 import sequelize from '../config/database.js';
 import { Op } from 'sequelize';
 import { limitEntretien, limitBureautique, limitInformatique, responsableMail } from '../config/productLimits.js';
@@ -36,7 +36,18 @@ async function sendAlert(nom) {
 // ==================== GET All Orders ====================
 export const getAllOrders = async (req, res) => {
     try {
-      const orders = await Order.findAll();
+      const orders = await Order.findAll({
+        attributes: { exclude: ['id_produit'] },
+        include: [
+          {
+            model: User,
+            attributes: ['nom', 'prenom']
+          },{
+            model: Product,
+            attributes: ['nom']
+          }
+        ]
+      });
       res.json(orders);
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -50,14 +61,18 @@ export const getAllOrdersForDirecteur = async (req, res) => {
       const userAgenceId = req.user.id_agence;
   
       const orders = await Order.findAll({
+        attributes: { exclude: ['id_produit'] },
         include: [
           {
             model: User,
-            attributes: ['id', 'id_agence'],
+            attributes: ['nom', 'prenom'],
             where: {
               id_agence: userAgenceId,
             },
-          },
+          },{
+            model: Product,
+            attributes: ['nom']
+          }
         ],
         where: {
           statut: {
@@ -85,6 +100,16 @@ export const getAllOrdersForResponsable = async (req, res) => {
     try {
   
       const orders = await Order.findAll({
+        attributes: { exclude: ['id_produit'] },
+        include: [
+          {
+            model: User,
+            attributes: ['nom', 'prenom']
+          },{
+            model: Product,
+            attributes: ['nom']
+          }
+        ],
         where: {
           statut: {
             [Op.in]: ['en_attente_responsable', 'accepte', 'rejete'],
@@ -123,6 +148,16 @@ export const getAllOrdersByStatut = async (req, res) => {
         }
 
         const orders = await Order.findAll({
+          attributes: { exclude: ['id_produit'] },
+          include: [
+            {
+              model: User,
+              attributes: ['nom', 'prenom']
+            },{
+              model: Product,
+              attributes: ['nom']
+            }
+          ],  
             where: { statut }
         });
 
@@ -137,7 +172,19 @@ export const getAllOrdersByStatut = async (req, res) => {
 export const getOrderById = async (req, res) => {
     try {
       const { id } = req.params;
-      const order = await Order.findByPk(id);
+      const order = await Order.findByPk(id, { 
+        attributes: { exclude: ['id_produit'] },
+        include: [
+          {
+            model: User,
+            attributes: ['nom', 'prenom']
+          },
+          {
+            model: Product,
+            attributes: ['nom']
+          }
+        ]
+      });
   
       if (!order) {
         return res.status(404).json({ message: 'Demande non trouvée' });
@@ -247,6 +294,10 @@ export const acceptOrderByDirector = async (req, res) => {
         if (!order) {
             return res.status(404).json({ message: "Demande non trouvée" });
         }
+
+        if (order.statut !== "en_attente_directeur"){
+          return res.status(400).json({ message: "Cette demande ne peut pas être acceptée dans son état actuel." });
+      }
 
         order.statut = "en_attente_responsable";
         await order.save();

@@ -77,7 +77,7 @@ router.get(
 );
 
 router.post(
-    '//order',
+    '/order',
     authenticateToken,
     createOrder
 );
