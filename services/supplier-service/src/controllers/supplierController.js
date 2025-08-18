@@ -59,7 +59,7 @@ export async function createSupplier(req, res) {
       form.append('size', req.file.size);
 
       // Upload file to file-service
-      const uploadRes = await axios.post(`${fileServiceUrl}/api/upload`, form, {
+      const uploadRes = await axios.post(`${fileServiceUrl}/file/upload`, form, {
         headers: form.getHeaders(),
       });
 
