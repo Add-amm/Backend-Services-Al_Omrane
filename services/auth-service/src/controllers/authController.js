@@ -8,8 +8,8 @@ dotenv.config();
 
 const URLMapper = {
   1: "http://localhost:3004/responsable",
-  2: "http://localhost:3004/admin",
-  3: "http://localhost:3004/employer"
+  2: "http://localhost:3004/admin/demandes",
+  3: "http://localhost:3004/employe/demandes"
 }
 
 export const login = async (req, res) => {
