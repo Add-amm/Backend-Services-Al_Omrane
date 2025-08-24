@@ -26,6 +26,9 @@ export const getAllUsers = async (req, res) => {
                 {
                     model: Agence,
                     attributes : ['nom']    
+                },{
+                  model: Role,
+                  attributes: ['nom']
                 }
             ]
         });
@@ -47,7 +50,7 @@ export const getUserById = async (req, res) => {
         include: [
             {
                 model: Agence,
-                attributes: ['type', 'nom']
+                attributes: ['nom']
             },
             {
                 model: Role,
@@ -243,6 +246,28 @@ export const deleteUser = async (req, res) => {
     await redisClient.del(`user:${id}:tokens`);
 
     res.status(200).json({ message: "Utilisateur supprimé avec succès." });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ==================== GET ALL Roles ====================
+export const getAllRoles = async (req, res) => {
+  try {
+    const roles = await Role.findAll();
+
+    res.json(roles);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ==================== GET ALL Roles ====================
+export const getAllagencies = async (req, res) => {
+  try {
+    const agences = await Agence.findAll();
+
+    res.json(agences);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

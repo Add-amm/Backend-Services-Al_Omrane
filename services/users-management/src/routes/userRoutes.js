@@ -9,7 +9,9 @@ import {
     createUser,
     updateUser,
     updateThisUserPassword,
-    deleteUser
+    deleteUser,
+    getAllRoles,
+    getAllagencies
 } from '../controllers/userController.js';
 
 
@@ -50,6 +52,16 @@ router.delete(
     authenticateToken,
     authorizeRoles(1),
     deleteUser
+);
+
+router.get(
+    '/roles',
+    getAllRoles
+);
+
+router.get(
+    '/agences',
+    getAllagencies
 );
 
 // ==================== ADDITIONAL ====================
